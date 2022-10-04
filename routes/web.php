@@ -18,3 +18,7 @@ Route::get('/', [\App\Http\Controllers\PrincipalController::class,'principal']);
 Route::get('/sobre-nos', [\App\Http\Controllers\AboutController::class, 'sobre']);
 
 Route::get('/contato', [\App\Http\Controllers\ContactController::class, 'contato']);
+
+Route::get('/contato/{nome}', function(string $nome) { //se declarar na rota '/contato/{nome?}' o nome deixa de ser obrigatório
+    echo "Estamos aqui $nome";
+});
