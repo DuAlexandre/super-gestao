@@ -13,12 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\PrincipalController::class,'principal']);
+Route::get('/', [\App\Http\Controllers\PrincipalController::class,'principal'])->name('site.index');
 
-Route::get('/sobre-nos', [\App\Http\Controllers\AboutController::class, 'sobre']);
+Route::get('/sobre-nos', [\App\Http\Controllers\AboutController::class, 'sobre'])->name('site.sobrenos');
 
-Route::get('/contato', [\App\Http\Controllers\ContactController::class, 'contato']);
+Route::get('/contato', [\App\Http\Controllers\ContactController::class, 'contato'])->name('site.contato');
 
-Route::get('/contato/{nome}', function(string $nome) { //se declarar na rota '/contato/{nome?}' o nome deixa de ser obrigatório
-    echo "Estamos aqui $nome";
+Route::get('/login', function() {return 'login';})->name('site.login');
+
+Route::prefix('/app')->group(function() {
+    Route::get('/clientes', function() {return 'clientes';})->name('app.clientes');
+    Route::get('/fornecedores', [\App\Http\Controllers\FornecedorController::class, 'index'])->name('app.fornecedores');
+    Route::get('/produtos', function() {return 'produtos';})->name('app.produtos');
 });
